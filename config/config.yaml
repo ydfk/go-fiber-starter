@@ -1,0 +1,8 @@
+app:
+  port: "25610"
+  env: "development"
+jwt:
+  secret: "123456789"  # 生产环境应使用环境变量
+  expiration: 604800  # token有效期24小时（秒）
+database:
+  path: "data/db.sqlite"
