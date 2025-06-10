@@ -3,11 +3,17 @@
  * @Author: ydfk
  * @Date: 2025-06-09 16:38:19
  * @LastEditors: ydfk
- * @LastEditTime: 2025-06-10 08:27:44
+ * @LastEditTime: 2025-06-10 16:51:49
  */
+// @title Go Fiber API
+// @version 1.0
+// @description Go Fiber Starter API
+// @host localhost:25610
+// @BasePath /api
 package main
 
 import (
+	_ "go-fiber-starter/docs"
 	"go-fiber-starter/pkg/config"
 	"go-fiber-starter/pkg/db"
 	"go-fiber-starter/pkg/logger"

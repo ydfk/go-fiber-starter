@@ -3,14 +3,16 @@
  * @Author: ydfk
  * @Date: 2025-06-09 16:37:32
  * @LastEditors: ydfk
- * @LastEditTime: 2025-06-09 17:37:02
+ * @LastEditTime: 2025-06-10 16:25:20
  */
 package middleware
 
 import (
+	"go-fiber-starter/internal/api/response"
+
 	"github.com/gofiber/fiber/v2"
 )
 
 func ErrorHandler(c *fiber.Ctx, err error) error {
-	return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"msg": err.Error()})
+	return response.Error(c, err.Error(), fiber.StatusInternalServerError)
 }

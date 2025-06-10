@@ -3,9 +3,9 @@
  * @Author: ydfk
  * @Date: 2025-06-09 17:25:30
  * @LastEditors: ydfk
- * @LastEditTime: 2025-06-10 14:51:37
+ * @LastEditTime: 2025-06-10 16:52:53
  */
-package model
+package user
 
 import (
 	"go-fiber-starter/internal/model/base"
@@ -13,6 +13,6 @@ import (
 
 type User struct {
 	base.BaseModel
-	Username string `gorm:"uniqueIndex;size:64" json:"username"`
-	Password string `json:"-"`
+	Username string `gorm:"uniqueIndex;size:64" json:"username" example:"admin"`
+	Password string `json:"-" example:"123456"`
 }

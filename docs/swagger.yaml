@@ -1,0 +1,9 @@
+basePath: /api
+host: localhost:25610
+info:
+  contact: {}
+  description: Go Fiber Starter API
+  title: Go Fiber API
+  version: "1.0"
+paths: {}
+swagger: "2.0"
