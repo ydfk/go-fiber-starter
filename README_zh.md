@@ -46,6 +46,10 @@ go-fiber-starter/
 │       └── user.go          # 用户服务
 ├── log/                     # 日志文件
 │   └── log.json             # JSON格式日志
+├── scripts/                 # 脚本（Windows）
+│   ├── build.bat            # 编译二进制
+│   ├── run.bat              # 启动服务
+│   └── test.bat             # 运行测试
 ├── pkg/                     # 公共包
 │   ├── config/              # 配置处理
 │   │   └── config.go        # 配置加载逻辑
@@ -96,6 +100,24 @@ go run ./cmd
 API 服务默认运行在 `http://localhost:25610`
 
 Swagger 文档可通过 `http://localhost:25610/swagger/` 访问
+
+### Windows 脚本
+
+Windows 可直接使用 `scripts/` 下的脚本：
+
+```bat
+scripts\build.bat
+scripts\run.bat
+scripts\test.bat
+```
+
+### 运行测试
+
+```bash
+go test ./...
+```
+
+认证相关的 HTTP 测试使用内存 SQLite，不会修改 `data/db.sqlite`。
 
 ### 使用 Docker 运行
 

@@ -48,6 +48,10 @@ go-fiber-starter/
 │       └── user.go          # User service
 ├── log/                     # Log files
 │   └── log.json             # JSON format logs
+├── scripts/                 # Helper scripts (Windows)
+│   ├── build.bat            # Build binary
+│   ├── run.bat              # Run API server
+│   └── test.bat             # Run tests
 ├── pkg/                     # Public packages
 │   ├── config/              # Configuration processing
 │   │   └── config.go        # Configuration loading logic
@@ -98,6 +102,24 @@ go run ./cmd
 The API service runs by default at `http://localhost:25610`
 
 Swagger documentation can be accessed via `http://localhost:25610/swagger/`
+
+### Windows Scripts
+
+If you are on Windows, you can use the scripts under `scripts/`:
+
+```bat
+scripts\build.bat
+scripts\run.bat
+scripts\test.bat
+```
+
+### Running Tests
+
+```bash
+go test ./...
+```
+
+The auth HTTP tests use an in-memory SQLite database and do not touch `data/db.sqlite`.
 
 ### Running with Docker
 
