@@ -16,8 +16,8 @@ type AppConfig struct {
 }
 
 type JwtConfig struct {
-	Secret string `mapstructure:"secret"`
-	Expire int    `mapstructure:"expire"`
+	Secret     string `mapstructure:"secret"`
+	Expiration int    `mapstructure:"expiration"`
 }
 
 type DatabaseConfig struct {

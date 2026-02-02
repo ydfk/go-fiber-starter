@@ -7,7 +7,7 @@
  */
 package db
 
-import model "go-fiber-starter/internal/model/User"
+import model "go-fiber-starter/internal/model/user"
 
 func GetUserById(id string) (model.User, error) {
 	var user model.User

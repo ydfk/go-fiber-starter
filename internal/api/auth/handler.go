@@ -9,13 +9,15 @@ package auth
 
 import (
 	"go-fiber-starter/internal/api/response"
-	model "go-fiber-starter/internal/model/User"
+	model "go-fiber-starter/internal/model/user"
 	"go-fiber-starter/internal/service"
 	"go-fiber-starter/pkg/db"
 
 	"github.com/gofiber/fiber/v2"
 	"golang.org/x/crypto/bcrypt"
 )
+
+var generateFromPassword = bcrypt.GenerateFromPassword
 
 func Register(c *fiber.Ctx) error {
 	var req struct{ Username, Password string }
@@ -24,7 +26,10 @@ func Register(c *fiber.Ctx) error {
 		return response.Error(c, "参数不正确")
 	}
 
-	hash, _ := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost)
+	hash, err := generateFromPassword([]byte(req.Password), bcrypt.DefaultCost)
+	if err != nil {
+		return response.Error(c, "密码加密失败")
+	}
 	user := model.User{Username: req.Username, Password: string(hash)}
 	if err := db.DB.Create(&user).Error; err != nil {
 		return response.Error(c, "用户名已存在")
