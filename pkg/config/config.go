@@ -1,6 +1,8 @@
 package config
 
 import (
+	"strings"
+
 	"github.com/spf13/viper"
 )
 
@@ -21,7 +23,23 @@ type JwtConfig struct {
 }
 
 type DatabaseConfig struct {
-	Path string `mapstructure:"path"`
+	Driver string `mapstructure:"driver"`
+	Path   string `mapstructure:"path"`
+	DSN    string `mapstructure:"dsn"`
+}
+
+func (c DatabaseConfig) DriverName() string {
+	driver := strings.TrimSpace(strings.ToLower(c.Driver))
+	switch driver {
+	case "", "sqlite", "sqlite3":
+		return "sqlite"
+	case "postgres", "postgresql":
+		return "postgres"
+	case "mysql":
+		return "mysql"
+	default:
+		return driver
+	}
 }
 
 var Current Config

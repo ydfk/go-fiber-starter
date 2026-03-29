@@ -44,6 +44,8 @@ Thumbs.db
 tmp/
 temp/
 .worktrees/
+.gocache/
+.gomodcache/
 
 # 证书文件
 *.pem

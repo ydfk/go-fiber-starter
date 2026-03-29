@@ -7,7 +7,7 @@
 - 🚀 基于 Go Fiber 框架，提供极快的 HTTP 性能
 - 📝 集成 Swagger 文档，API 一目了然
 - 🔐 内置 JWT 认证系统
-- 📦 使用 SQLite 作为数据库，简单易用
+- 📦 内置 SQLite、PostgreSQL、MySQL 三种数据库支持
 - 🔄 自动数据库迁移功能
 - 📊 优雅的日志处理机制
 - 🛠️ 完整的错误处理中间件
@@ -23,7 +23,7 @@ go-fiber-starter/
 ├── config/                  # 配置文件
 │   └── config.yaml          # 应用配置
 ├── data/                    # 数据存储
-│   └── db.sqlite            # SQLite 数据库文件
+│   └── db.sqlite            # SQLite 数据库文件（默认）
 ├── docs/                    # Swagger 文档
 │   ├── docs.go              # 自动生成的文档代码
 │   ├── swagger.json         # Swagger JSON 配置
@@ -157,7 +157,31 @@ jwt:
   secret: "your-secret" # JWT密钥 (生产环境建议使用环境变量)
   expiration: 86400 # Token有效期(秒)
 database:
-  path: "data/db.sqlite" # SQLite数据库路径
+  driver: "sqlite" # 支持 sqlite/postgres/postgresql/mysql
+  path: "data/db.sqlite" # 仅在 driver=sqlite 时生效
+  dsn: "" # 仅在 driver=postgres/mysql 时生效
+```
+
+示例：
+
+```yaml
+# SQLite
+database:
+  driver: "sqlite"
+  path: "data/db.sqlite"
+  dsn: ""
+
+# PostgreSQL
+database:
+  driver: "postgres"
+  path: ""
+  dsn: "host=127.0.0.1 user=postgres password=postgres dbname=go_fiber_starter port=5432 sslmode=disable TimeZone=Asia/Shanghai"
+
+# MySQL
+database:
+  driver: "mysql"
+  path: ""
+  dsn: "root:password@tcp(127.0.0.1:3306)/go_fiber_starter?charset=utf8mb4&parseTime=True&loc=Local"
 ```
 
 ## 目录结构说明

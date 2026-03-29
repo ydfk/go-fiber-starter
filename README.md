@@ -9,7 +9,7 @@ _[中文文档](README_zh.md)_
 - 🚀 Built on Go Fiber framework, offering extremely fast HTTP performance
 - 📝 Integrated Swagger documentation for clear API visibility
 - 🔐 Built-in JWT authentication system
-- 📦 SQLite database for simplicity and ease of use
+- 📦 Built-in support for SQLite, PostgreSQL, and MySQL
 - 🔄 Automatic database migration functionality
 - 📊 Elegant logging mechanism
 - 🛠️ Complete error handling middleware
@@ -25,7 +25,7 @@ go-fiber-starter/
 ├── config/                  # Configuration files
 │   └── config.yaml          # Application configuration
 ├── data/                    # Data storage
-│   └── db.sqlite            # SQLite database file
+│   └── db.sqlite            # SQLite database file (default)
 ├── docs/                    # Swagger documentation
 │   ├── docs.go              # Auto-generated documentation code
 │   ├── swagger.json         # Swagger JSON configuration
@@ -159,7 +159,31 @@ jwt:
   secret: "your-secret" # JWT key (environment variables recommended for production)
   expiration: 86400 # Token validity period (seconds)
 database:
-  path: "data/db.sqlite" # SQLite database path
+  driver: "sqlite" # Supported values: sqlite/postgres/postgresql/mysql
+  path: "data/db.sqlite" # Used only when driver=sqlite
+  dsn: "" # Used when driver=postgres/mysql
+```
+
+Examples:
+
+```yaml
+# SQLite
+database:
+  driver: "sqlite"
+  path: "data/db.sqlite"
+  dsn: ""
+
+# PostgreSQL
+database:
+  driver: "postgres"
+  path: ""
+  dsn: "host=127.0.0.1 user=postgres password=postgres dbname=go_fiber_starter port=5432 sslmode=disable TimeZone=Asia/Shanghai"
+
+# MySQL
+database:
+  driver: "mysql"
+  path: ""
+  dsn: "root:password@tcp(127.0.0.1:3306)/go_fiber_starter?charset=utf8mb4&parseTime=True&loc=Local"
 ```
 
 ## Directory Structure Description
