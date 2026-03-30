@@ -50,6 +50,7 @@ go-fiber-starter/
 │   └── log.json             # JSON format logs
 ├── scripts/                 # Helper scripts (Windows)
 │   ├── build.bat            # Build binary
+│   ├── dev.bat              # Hot reload for development
 │   ├── run.bat              # Run API server
 │   └── test.bat             # Run tests
 ├── pkg/                     # Public packages
@@ -97,6 +98,13 @@ go mod download
 go run ./cmd
 ```
 
+For hot reload during development, use `air`:
+
+```bash
+go install github.com/air-verse/air@latest
+air -c .air.toml
+```
+
 3. Access the application
 
 The API service runs by default at `http://localhost:25610`
@@ -109,6 +117,7 @@ If you are on Windows, you can use the scripts under `scripts/`:
 
 ```bat
 scripts\build.bat
+scripts\dev.bat
 scripts\run.bat
 scripts\test.bat
 ```
@@ -120,6 +129,21 @@ go test ./...
 ```
 
 The auth HTTP tests use an in-memory SQLite database and do not touch `data/db.sqlite`.
+
+### Hot Reload In Development
+
+The repository includes `.air.toml` for development-time hot reload. When Go files or config files change, `air` rebuilds and restarts the API automatically.
+
+```bash
+go install github.com/air-verse/air@latest
+air -c .air.toml
+```
+
+On Windows, you can also run:
+
+```bat
+scripts\dev.bat
+```
 
 ### Running with Docker
 

@@ -48,6 +48,7 @@ go-fiber-starter/
 │   └── log.json             # JSON格式日志
 ├── scripts/                 # 脚本（Windows）
 │   ├── build.bat            # 编译二进制
+│   ├── dev.bat              # 开发模式热更新
 │   ├── run.bat              # 启动服务
 │   └── test.bat             # 运行测试
 ├── pkg/                     # 公共包
@@ -95,6 +96,13 @@ go mod download
 go run ./cmd
 ```
 
+开发阶段如需热更新，建议使用 `air`：
+
+```bash
+go install github.com/air-verse/air@latest
+air -c .air.toml
+```
+
 3. 访问应用
 
 API 服务默认运行在 `http://localhost:25610`
@@ -107,6 +115,7 @@ Windows 可直接使用 `scripts/` 下的脚本：
 
 ```bat
 scripts\build.bat
+scripts\dev.bat
 scripts\run.bat
 scripts\test.bat
 ```
@@ -118,6 +127,21 @@ go test ./...
 ```
 
 认证相关的 HTTP 测试使用内存 SQLite，不会修改 `data/db.sqlite`。
+
+### 开发热更新
+
+项目提供了 `.air.toml` 作为开发态热更新配置。修改 Go 代码或配置文件后，`air` 会自动重新编译并重启服务。
+
+```bash
+go install github.com/air-verse/air@latest
+air -c .air.toml
+```
+
+Windows 也可以直接运行：
+
+```bat
+scripts\dev.bat
+```
 
 ### 使用 Docker 运行
 

@@ -48,6 +48,7 @@ temp/
 .worktrees/
 .gocache/
 .gomodcache/
+tmp/air/
 
 # 证书文件
 *.pem
