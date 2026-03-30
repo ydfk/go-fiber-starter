@@ -149,7 +149,18 @@ This project uses Swagger to automatically generate API documentation. After sta
 
 ## Configuration
 
-The configuration file is located at `config/config.yaml`, with main configuration items including:
+The project now supports layered config loading, similar to `.env` and `.env.local` on the frontend.
+
+Load order:
+
+1. `config/config.yaml`
+2. `config/config.<env>.yaml`
+3. `config/config.local.yaml`
+4. `config/config.<env>.local.yaml`
+
+Later files override earlier ones. `config.local.yaml` and `config.*.local.yaml` are intended for local machine overrides and are ignored by Git. You can start from `config/config.local.yaml.example`.
+
+The base config file is `config/config.yaml`, with main configuration items including:
 
 ```yaml
 app:

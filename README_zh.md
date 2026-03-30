@@ -147,7 +147,18 @@ API 服务默认运行在 `http://localhost:25610`
 
 ## 配置
 
-配置文件位于 `config/config.yaml`，主要配置项包括：
+项目现在支持类似前端 `.env` / `.env.local` 的分层配置加载。
+
+加载顺序：
+
+1. `config/config.yaml`
+2. `config/config.<env>.yaml`
+3. `config/config.local.yaml`
+4. `config/config.<env>.local.yaml`
+
+后加载的文件会覆盖先加载的文件。`config.local.yaml` 和 `config.*.local.yaml` 用于本机私有配置，已加入 Git 忽略。可以直接参考 `config/config.local.yaml.example`。
+
+基础配置文件位于 `config/config.yaml`，主要配置项包括：
 
 ```yaml
 app:

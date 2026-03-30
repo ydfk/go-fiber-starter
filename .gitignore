@@ -39,6 +39,8 @@ Thumbs.db
 
 # 配置文件（如有需要）
 # config.yaml
+config/config.local.yaml
+config/config.*.local.yaml
 
 # 临时文件
 tmp/
