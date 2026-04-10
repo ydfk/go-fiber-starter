@@ -5,8 +5,8 @@ import (
 	"time"
 
 	"github.com/glebarez/sqlite"
-	"github.com/gofiber/fiber/v2"
-	"github.com/golang-jwt/jwt/v4"
+	"github.com/gofiber/fiber/v3"
+	"github.com/golang-jwt/jwt/v5"
 	"github.com/google/uuid"
 	"github.com/valyala/fasthttp"
 	"go-fiber-starter/internal/model/base"
@@ -127,7 +127,7 @@ func TestCurrentUserUserIDMissing(t *testing.T) {
 	}
 }
 
-func newCtxWithToken(t *testing.T, claims jwt.MapClaims) *fiber.Ctx {
+func newCtxWithToken(t *testing.T, claims jwt.MapClaims) fiber.Ctx {
 	t.Helper()
 
 	app := fiber.New()
@@ -153,7 +153,7 @@ func newCtxWithToken(t *testing.T, claims jwt.MapClaims) *fiber.Ctx {
 	return ctx
 }
 
-func newCtxWithRawToken(t *testing.T, token *jwt.Token) *fiber.Ctx {
+func newCtxWithRawToken(t *testing.T, token *jwt.Token) fiber.Ctx {
 	t.Helper()
 
 	app := fiber.New()

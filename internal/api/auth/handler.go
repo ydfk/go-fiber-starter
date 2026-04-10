@@ -13,16 +13,16 @@ import (
 	"go-fiber-starter/internal/service"
 	"go-fiber-starter/pkg/db"
 
-	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v3"
 	"golang.org/x/crypto/bcrypt"
 )
 
 var generateFromPassword = bcrypt.GenerateFromPassword
 
-func Register(c *fiber.Ctx) error {
+func Register(c fiber.Ctx) error {
 	var req struct{ Username, Password string }
 
-	if err := c.BodyParser(&req); err != nil {
+	if err := c.Bind().Body(&req); err != nil {
 		return response.Error(c, "参数不正确")
 	}
 
@@ -47,10 +47,10 @@ func Register(c *fiber.Ctx) error {
 // @Success 200 {object} LoginResponse
 // @Failure 401 {object} ErrorResponse
 // @Router /api/auth/login [post]
-func Login(c *fiber.Ctx) error {
+func Login(c fiber.Ctx) error {
 	var req struct{ Username, Password string }
 
-	if err := c.BodyParser(&req); err != nil {
+	if err := c.Bind().Body(&req); err != nil {
 		return response.Error(c, "参数不正确")
 	}
 
@@ -70,7 +70,7 @@ func Login(c *fiber.Ctx) error {
 	return response.Success(c, fiber.Map{"token": token})
 }
 
-func Profile(c *fiber.Ctx) error {
+func Profile(c fiber.Ctx) error {
 	user, err := service.CurrentUser(c)
 	if err != nil {
 		return response.Error(c, "用户未找到")

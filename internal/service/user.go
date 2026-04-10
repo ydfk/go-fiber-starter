@@ -4,8 +4,9 @@ import (
 	"errors"
 	"time"
 
-	"github.com/gofiber/fiber/v2"
-	"github.com/golang-jwt/jwt/v4"
+	jwtware "github.com/gofiber/contrib/v3/jwt"
+	"github.com/gofiber/fiber/v3"
+	"github.com/golang-jwt/jwt/v5"
 	"github.com/google/uuid"
 	model "go-fiber-starter/internal/model/user"
 	"go-fiber-starter/pkg/config"
@@ -23,15 +24,13 @@ func GenerateJWT(user *model.User) (string, error) {
 	return token.SignedString([]byte(config.Current.Jwt.Secret))
 }
 
-func CurrentUser(c *fiber.Ctx) (user *model.User, err error) {
-	raw := c.Locals("user")
-	if raw == nil {
-		return nil, errors.New("no jwt token in context")
+func CurrentUser(c fiber.Ctx) (user *model.User, err error) {
+	token := jwtware.FromContext(c)
+	if token == nil {
+		token = tokenFromLocals(c)
 	}
-
-	token, ok := raw.(*jwt.Token)
-	if !ok {
-		return nil, errors.New("invalid jwt token in context")
+	if token == nil {
+		return nil, errors.New("no jwt token in context")
 	}
 	if !token.Valid {
 		return nil, errors.New("invalid jwt token")
@@ -53,6 +52,20 @@ func CurrentUser(c *fiber.Ctx) (user *model.User, err error) {
 	}
 
 	return &dbUser, nil
+}
+
+func tokenFromLocals(c fiber.Ctx) *jwt.Token {
+	raw := c.Locals("user")
+	if raw == nil {
+		return nil
+	}
+
+	token, ok := raw.(*jwt.Token)
+	if !ok {
+		return nil
+	}
+
+	return token
 }
 
 func parseUserIDClaim(claims jwt.MapClaims) (string, error) {

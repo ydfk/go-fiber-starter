@@ -74,7 +74,7 @@ go-fiber-starter/
 
 ### 准备工作
 
-1. 安装 [Go](https://golang.org/dl/) (版本 1.24 或更高)
+1. 安装 [Go](https://golang.org/dl/) (版本 1.25 或更高)
 2. 克隆本仓库
 
 ```bash

@@ -8,8 +8,8 @@ import (
 	"testing"
 
 	"github.com/glebarez/sqlite"
-	"github.com/gofiber/fiber/v2"
-	jwtware "github.com/gofiber/jwt/v3"
+	jwtware "github.com/gofiber/contrib/v3/jwt"
+	"github.com/gofiber/fiber/v3"
 	"gorm.io/gorm"
 
 	model "go-fiber-starter/internal/model/user"
@@ -64,8 +64,8 @@ func setupTestApp(t *testing.T) *fiber.App {
 
 	api := app.Group("/api")
 	api.Use(jwtware.New(jwtware.Config{
-		SigningKey: []byte(config.Current.Jwt.Secret),
-		ErrorHandler: func(c *fiber.Ctx, err error) error {
+		SigningKey: jwtware.SigningKey{Key: []byte(config.Current.Jwt.Secret)},
+		ErrorHandler: func(c fiber.Ctx, err error) error {
 			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
 				"code":    fiber.StatusUnauthorized,
 				"message": "认证失败，请先登录",

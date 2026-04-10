@@ -10,9 +10,9 @@ package middleware
 import (
 	"go-fiber-starter/internal/api/response"
 
-	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v3"
 )
 
-func ErrorHandler(c *fiber.Ctx, err error) error {
+func ErrorHandler(c fiber.Ctx, err error) error {
 	return response.Error(c, err.Error(), fiber.StatusInternalServerError)
 }

@@ -13,12 +13,12 @@ import (
 	"go-fiber-starter/pkg/config"
 	"go-fiber-starter/pkg/logger"
 
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/cors"
-	fiberLogger "github.com/gofiber/fiber/v2/middleware/logger"
-	"github.com/gofiber/fiber/v2/middleware/recover"
-	jwtware "github.com/gofiber/jwt/v3"
-	"github.com/gofiber/swagger"
+	jwtware "github.com/gofiber/contrib/v3/jwt"
+	swaggo "github.com/gofiber/contrib/v3/swaggo"
+	"github.com/gofiber/fiber/v3"
+	"github.com/gofiber/fiber/v3/middleware/cors"
+	fiberLogger "github.com/gofiber/fiber/v3/middleware/logger"
+	"github.com/gofiber/fiber/v3/middleware/recover"
 )
 
 func api() {
@@ -27,22 +27,22 @@ func api() {
 		ErrorHandler: middleware.ErrorHandler,
 	})
 
-	app.Get("/swagger/*", swagger.HandlerDefault)
+	app.Get("/swagger/*", swaggo.HandlerDefault)
 
 	app.Use(recover.New())
 	app.Use(cors.New())
 	app.Use(fiberLogger.New(fiberLogger.Config{
 		Format: "${ip} ${status} ${latency} ${method} ${path}\n",
-		Output: logger.GetFiberLogWriter(),
+		Stream: logger.GetFiberLogWriter(),
 	}))
 
 	auth.RegisterUnProtectedRoutes(app)
 	// 配置路由组
 	api := app.Group("/api")
 	api.Use(jwtware.New(jwtware.Config{
-		SigningKey: []byte(config.Current.Jwt.Secret),
+		SigningKey: jwtware.SigningKey{Key: []byte(config.Current.Jwt.Secret)},
 		// 添加自定义错误处理，返回401状态码
-		ErrorHandler: func(c *fiber.Ctx, err error) error {
+		ErrorHandler: func(c fiber.Ctx, err error) error {
 			logger.Error("JWT验证失败: %v", err)
 			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
 				"code":    fiber.StatusUnauthorized,

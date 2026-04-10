@@ -10,7 +10,7 @@ package response
 import (
 	"time"
 
-	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v3"
 )
 
 // Response 定义统一API响应结构
@@ -23,7 +23,7 @@ type Response struct {
 }
 
 // Success 返回成功响应
-func Success(c *fiber.Ctx, data interface{}, code ...int) error {
+func Success(c fiber.Ctx, data interface{}, code ...int) error {
 	statusCode := fiber.StatusOK
 	if len(code) > 0 {
 		statusCode = code[0]
@@ -38,7 +38,7 @@ func Success(c *fiber.Ctx, data interface{}, code ...int) error {
 }
 
 // Error 返回错误响应
-func Error(c *fiber.Ctx, msg string, code ...int) error {
+func Error(c fiber.Ctx, msg string, code ...int) error {
 	statusCode := fiber.StatusInternalServerError
 	if len(code) > 0 {
 		statusCode = code[0]

@@ -8,7 +8,7 @@
 package auth
 
 import (
-	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v3"
 )
 
 func RegisterUnProtectedRoutes(router *fiber.App) {

@@ -76,7 +76,7 @@ go-fiber-starter/
 
 ### Prerequisites
 
-1. Install [Go](https://golang.org/dl/) (version 1.24 or higher)
+1. Install [Go](https://golang.org/dl/) (version 1.25 or higher)
 2. Clone this repository
 
 ```bash
